@@ -14,19 +14,17 @@ const LINE_MESSAGING_API = "https://api.line.me/v2/bot/message";
 const LINE_CONTENT_API = "https://api-data.line.me/v2/bot/message";
 const LINE_HEADER = {
   "Content-Type": "application/json",
-  Authorization: "Bearer YOUR-CHANNEL-ACCESS-TOKEN"
+  Authorization: `Bearer ${functions.config().linedev.channel_access_token}`
 };
 
 exports.UCL = functions.region(region).runWith(runtimeOpts).https.onRequest(async (req, res) => {
-  // [1] Get event[0]
+  /// [1] Get event[0]
   switch (event.type) {
     case 'message':
       if (event.message.type === 'image') {
         // [4] Call doImage()
       } else if (event.message.type === 'text' && event.message.text === 'subscribe') {
         // [3] Reply message how to subscibe
-
-        // [10] Create LIFF and Flex Message
       } else {
         // [2]
         // Get latest score from RTDB
@@ -53,7 +51,6 @@ const doImage = async (event) => {
   const fs = require("fs");
   // [5]
   // Define URL with getContentUrl
-  // Check LIFF condition by contentProvider
   // Donwload binary by building buffer
   // Create local temp file
   // Define bucket
